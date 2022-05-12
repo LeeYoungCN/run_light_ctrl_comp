@@ -1,0 +1,20 @@
+{
+    "version": "2.0.0",
+    "type": "shell",
+    "options": {
+        "cwd": "${workspaceFolder}"
+    },
+    "tasks": [
+        {
+            "label": "Run",
+            "options": {
+                "cwd": "${workspaceFolder}/build/"
+            },
+            "command": "./build.sh",
+            "detail": "根据makefile生成可执行文件和库文件",
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+    ]
+}

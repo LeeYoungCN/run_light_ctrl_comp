@@ -1,18 +1,18 @@
-#include "light_running_ctrl_iterator.h"
+#include "run_light_behavior_ctrl_iterator.h"
 
-LightRunningCtrlIterator::~LightRunningCtrlIterator() {}
+RunLightBehaviorCtrlIterator::~RunLightBehaviorCtrlIterator() {}
 
-VOS_VOID LightRunningCtrlIterator::Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex)
+VOS_VOID RunLightBehaviorCtrlIterator::Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex)
 {
     m_compHandle = handle;
     m_lightIndex = lightIndex;
-    m_compTimer.Init(m_lightIndex);
+    m_compTimer.Init(m_lightIndex, lightIndex);
 }
 
-VOS_VOID LightRunningCtrlIterator::StartIterator(const LightAction &lightAction, const VOS_UINT32 loopNum)
+VOS_VOID RunLightBehaviorCtrlIterator::StartIterator(const LightBehaviorComp &behaviorComp)
 {
-    m_lightAction = lightAction;
-    m_loopNum = loopNum;
+    m_lightAction = behaviorComp.lightAction;
+    m_loopNum = behaviorComp.loopNum;
     m_iteratorStatus = RunningStatus::RUNNING;
     if (m_loopNum == LOOP_INFINITE) {
         m_iteratorType = IteratorType::INFINITE;
@@ -21,12 +21,12 @@ VOS_VOID LightRunningCtrlIterator::StartIterator(const LightAction &lightAction,
     StartLoop();
 }
 
-RunningStatus LightRunningCtrlIterator::GetCurrentStatus()
+RunningStatus RunLightBehaviorCtrlIterator::GetCurrentStatus()
 {
     return m_iteratorStatus;
 }
 
-RunningStatus LightRunningCtrlIterator::NextStep()
+RunningStatus RunLightBehaviorCtrlIterator::NextStep()
 {
     if (ActionNextStep() == RunningStatus::FINISH) {
         return NextLoop();
@@ -34,7 +34,7 @@ RunningStatus LightRunningCtrlIterator::NextStep()
     return RunningStatus::RUNNING;
 }
 
-RunningStatus LightRunningCtrlIterator::ActionNextStep()
+RunningStatus RunLightBehaviorCtrlIterator::ActionNextStep()
 {
     if (m_iteratorStatus == RunningStatus::FINISH) {
         return RunningStatus::FINISH;
@@ -58,7 +58,7 @@ RunningStatus LightRunningCtrlIterator::ActionNextStep()
     return m_actionStatus;
 }
 
-RunningStatus LightRunningCtrlIterator::NextLoop()
+RunningStatus RunLightBehaviorCtrlIterator::NextLoop()
 {
     if (m_iteratorStatus == RunningStatus::FINISH || m_loopNum == 0) {
         m_iteratorStatus = RunningStatus::FINISH;
@@ -77,7 +77,7 @@ RunningStatus LightRunningCtrlIterator::NextLoop()
     return m_iteratorStatus;
 }
 
-RunningStatus LightRunningCtrlIterator::FlashNextStep()
+RunningStatus RunLightBehaviorCtrlIterator::FlashNextStep()
 {
     m_counter--;
     if (m_counter > 0) {
@@ -94,12 +94,12 @@ RunningStatus LightRunningCtrlIterator::FlashNextStep()
     return RunningStatus::RUNNING;
 }
 
-RunningStatus LightRunningCtrlIterator::NoarmalNextStep()
+RunningStatus RunLightBehaviorCtrlIterator::NoarmalNextStep()
 {
     return RunningStatus::FINISH;
 }
 
-VOS_VOID LightRunningCtrlIterator::StartLoop()
+VOS_VOID RunLightBehaviorCtrlIterator::StartLoop()
 {
     if (m_iteratorStatus == RunningStatus::FINISH) {
         return;

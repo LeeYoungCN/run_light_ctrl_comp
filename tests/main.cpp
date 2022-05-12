@@ -1,4 +1,4 @@
-#include "light_running_ctrl_base.h"
+#include "run_light_behavior_ctrl_base.h"
 
 int main()
 {
@@ -16,21 +16,21 @@ int main()
         2,
         3,
     };
-    ActionGroupComp comp[] = {
+    LightBehaviorComp comp[] = {
         {normal, 1},
         {flash, 1},
     };
 
-    static LigtActionGroup actionGroup = {
+    static LigtBehavior actionGroup = {
         comp,
         2
     };
 
-    LightRunningCtrlBase c;
-    LightRunningCtrlBase d;
+    RunLightBehaviorCtrlBase c;
+    RunLightBehaviorCtrlBase d;
     c.Init(1, 2);
     d.Init(1, 3);
-    d.RefreshActionGroup(actionGroup);
+    d.SetBehavior(actionGroup);
     for (VOS_UINT32 i = 1; i < 10; i++) {
         cout << "i = " << i << endl;
         d.Run();

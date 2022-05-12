@@ -1,5 +1,5 @@
-#ifndef LIGHT_RUNNINT_CTRL_PUBLIC_DEF_H
-#define LIGHT_RUNNINT_CTRL_PUBLIC_DEF_H
+#ifndef RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
+#define RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
 #include "vos_base.h"
 
 enum class LightType {
@@ -34,14 +34,14 @@ struct LightAction {
     VOS_UINT32 para2;
 };
 
-struct ActionGroupComp {
+struct LightBehaviorComp {
     LightAction lightAction;  // 动作
     VOS_UINT32  loopNum;     // 循环次数
 };
 
-struct LigtActionGroup {
-    ActionGroupComp *componentArr;
-    VOS_UINT32       componentNum;
+struct LigtBehavior {
+    LightBehaviorComp *componentArr;
+    VOS_UINT32         componentNum;
 };
 
-#endif // LIGHT_RUNNINT_CTRL_PUBLIC_DEF_H
+#endif // RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H

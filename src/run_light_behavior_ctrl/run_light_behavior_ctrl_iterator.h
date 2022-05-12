@@ -1,9 +1,8 @@
-#ifndef LIGHT_RUNNING_CTRL_ITERATOR_H
-#define LIGHT_RUNNING_CTRL_ITERATOR_H
+#ifndef RUN_LIGHT_BEHAVIOR_CTRL_ITERATOR_H
+#define RUN_LIGHT_BEHAVIOR_CTRL_ITERATOR_H
 #include "vos_base.h"
-#include "light_running_ctrl_public_def.h"
-
-#define COMP_TIMER RunLightCtrlCompTimer
+#include "run_light_behavior_ctrl_public.h"
+#include "run_light_behavior_ctrl_timer.h"
 
 const VOS_UINT32 LOOP_INFINITE = 0xFFFFFFFF;
 
@@ -17,12 +16,12 @@ enum class IteratorType {
     FINITE
 };
 
-class LightRunningCtrlIterator {
+class RunLightBehaviorCtrlIterator {
 public:
-    LightRunningCtrlIterator() = default;
-    ~LightRunningCtrlIterator();
+    RunLightBehaviorCtrlIterator() = default;
+    ~RunLightBehaviorCtrlIterator();
     VOS_VOID Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex);
-    VOS_VOID StartIterator(const LightAction &lightAction, const VOS_UINT32 loopNum);
+    VOS_VOID StartIterator(const LightBehaviorComp &behaviorComp);
     RunningStatus NextStep();
     RunningStatus GetCurrentStatus();
 
@@ -49,4 +48,4 @@ private:
     RunningStatus m_iteratorStatus  = RunningStatus::FINISH;
 };
 
-#endif // LIGHT_RUNNING_CTRL_ITERATOR_H
+#endif // RUN_LIGHT_BEHAVIOR_CTRL_ITERATOR_H

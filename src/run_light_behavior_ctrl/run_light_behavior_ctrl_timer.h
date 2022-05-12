@@ -17,6 +17,7 @@ private:
     VOS_HANDEL_T m_handle;
     VOS_UINT32 m_timerId;
     VOS_UINT32 m_timerName;
+    VOS_UINT32 m_timerDelay;
 };
 
 #endif // RUN_LIGHT_BEHAVIOR_CTRL_TIMER_H

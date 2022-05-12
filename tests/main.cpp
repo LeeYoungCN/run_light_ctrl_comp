@@ -33,7 +33,7 @@ int main()
     d.SetBehavior(actionGroup);
     for (VOS_UINT32 i = 1; i < 10; i++) {
         cout << "i = " << i << endl;
-        d.Run();
+        d.Run(3);
     }
 
     return 0;

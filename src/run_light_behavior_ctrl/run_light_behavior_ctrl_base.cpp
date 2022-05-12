@@ -1,9 +1,5 @@
 #include "run_light_behavior_ctrl_base.h"
 
-RunLightBehaviorCtrlBase::RunLightBehaviorCtrlBase() {}
-
-RunLightBehaviorCtrlBase::~RunLightBehaviorCtrlBase() {}
-
 VOS_VOID RunLightBehaviorCtrlBase::Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex)
 {
     RunLightBehaviorCtrlIterator::Init(handle, lightIndex);
@@ -21,9 +17,9 @@ VOS_VOID RunLightBehaviorCtrlBase::SetColor(const LightColor lightColor)
     cout << "SetColor = " << (VOS_UINT32)(lightColor) << endl;
 }
 
-VOS_VOID RunLightBehaviorCtrlBase::Run()
+VOS_VOID RunLightBehaviorCtrlBase::Run(VOS_UINT32 timerName)
 {
-    if (NextStep() != RunningStatus::FINISH) {
+    if (NextStep(timerName) != RunningStatus::FINISH) {
         return;
     }
     m_runStage++;

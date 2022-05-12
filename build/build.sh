@@ -24,7 +24,7 @@ if [[ ${os} == "MINGW"* ]]; then
 else
     cmake -S . -B ${cache_path}
 fi
-cmake --build ${cache_path} -j16
+cmake --build ${cache_path}
 cmake --install ${cache_path} --component ${component_name}
 
 ./${output_path}/${test_exe}${exe_suffix}

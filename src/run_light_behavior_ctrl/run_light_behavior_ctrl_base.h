@@ -6,13 +6,14 @@
 
 class RunLightBehaviorCtrlBase : protected RunLightBehaviorCtrlIterator {
 public:
-    RunLightBehaviorCtrlBase();
-    virtual ~RunLightBehaviorCtrlBase();
+    RunLightBehaviorCtrlBase() = default;
+    virtual ~RunLightBehaviorCtrlBase() = default;
 
     VOS_VOID Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex);
     VOS_VOID SetBehavior(const LigtBehavior &newBehavior);
     VOS_VOID SetColor(const LightColor lightColor) override;
-    VOS_VOID Run();
+    VOS_VOID Run(VOS_UINT32 timerName);
+
 private:
     VOS_UINT32   m_runStage = 0;
     LigtBehavior m_currBehavior = {0};

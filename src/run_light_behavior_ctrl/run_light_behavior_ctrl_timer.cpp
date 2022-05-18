@@ -12,15 +12,15 @@ VOS_VOID RunLightBehaviorCtrlTimer::StartTimer(VOS_UINT32 delayTimeMs)
 {
     StopTimer();
     m_timerDelay = delayTimeMs;
-    printf("start name = %u, time = %u\n", m_timerName, m_timerDelay);
+    RCL_LOG_EVENT("start name = %u, time = %u\n", m_timerName, m_timerDelay);
 }
 
 VOS_VOID RunLightBehaviorCtrlTimer::StopTimer()
 {
-    printf("stop name = %u, time = %u\n", m_timerName, m_timerDelay);
+    RCL_LOG_EVENT("stop name = %u, time = %u\n", m_timerName, m_timerDelay);
 }
 
-VOS_UINT32 RunLightBehaviorCtrlTimer::IsMyTimer(VOS_UINT32 timerName)
+VOS_BOOL RunLightBehaviorCtrlTimer::IsMyTimer(VOS_UINT32 timerName)
 {
-    return (m_timerName == timerName ? VOS_OK : VOS_ERR);
+    return (m_timerName == timerName ? VOS_TRUE : VOS_FALSE);
 }

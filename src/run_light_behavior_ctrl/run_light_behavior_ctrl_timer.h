@@ -12,7 +12,8 @@ public:
     VOS_VOID Init(VOS_HANDEL_T handle, VOS_UINT32 timerName);
     VOS_VOID StartTimer(VOS_UINT32 delayTimeMs);
     VOS_VOID StopTimer();
-    VOS_UINT32 IsMyTimer(VOS_UINT32 timerName);
+    VOS_BOOL IsMyTimer(VOS_UINT32 timerName);
+
 private:
     VOS_HANDEL_T m_handle;
     VOS_UINT32 m_timerId;

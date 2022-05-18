@@ -1,4 +1,4 @@
-#include "run_light_behavior_ctrl_base.h"
+#include "run_light_behavior_ctrl.h"
 
 int main()
 {
@@ -26,8 +26,8 @@ int main()
         2
     };
 
-    RunLightBehaviorCtrlBase c;
-    RunLightBehaviorCtrlBase d;
+    RunLightBehaviorCtrl c(1);
+    RunLightBehaviorCtrl d(2);
     c.Init(1, 2);
     d.Init(1, 3);
     d.SetBehavior(actionGroup);

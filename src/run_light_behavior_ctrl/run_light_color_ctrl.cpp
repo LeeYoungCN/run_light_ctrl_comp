@@ -1,4 +1,5 @@
 #include "run_light_color_ctrl.h"
+#include "DevId.h"
 #include "LedDriver.h"
 
 namespace {

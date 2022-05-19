@@ -1,24 +1,9 @@
 #include "run_light_action_iterator.h"
 
-RunLightActionIterator::RunLightActionIterator(VOS_UINT16 lightId)
-    :m_runLightColorCtrl(RunLightColorCtrl(lightId))
-{}
-
-RunLightActionIterator::RunLightActionIterator(BreathLightPara breathLightPara)
-    :m_runLightColorCtrl(RunLightColorCtrl(breathLightPara))
-{}
-
-RunLightActionIterator::RunLightActionIterator(BreathLightGroupPara breathLightGroupPara)
-    :m_runLightColorCtrl(RunLightColorCtrl(breathLightGroupPara))
-{}
-
-RunLightActionIterator::RunLightActionIterator(NormalLightGroupPara normalLightGropuPara)
-    :m_runLightColorCtrl(RunLightColorCtrl(normalLightGropuPara))
-{}
-
-VOS_VOID RunLightActionIterator::Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex)
+VOS_VOID RunLightActionIterator::Init(RunLightColorCtrl &colorCtrl, RunLightCtrlTimer &timer)
 {
-    m_itrTimer.Init(handle, lightIndex);
+    m_colorCtrl = colorCtrl;
+    m_itrTimer = timer;
 }
 
 // 开始运行动作迭代器
@@ -30,8 +15,9 @@ VOS_VOID RunLightActionIterator::StartIterator(const LightBehaviorComp &behavior
     if (m_loopNum == LOOP_INFINITE) {
         m_iteratorType = IteratorType::INFINITE;
     }
-    m_itrTimer.StartTimer(m_lightAction.delayTime);
-    StartLoop();
+    if (m_itrTimer.StartTimer(m_lightAction.delayTime) == VOS_OK) {
+        StartLoop();
+    }
 }
 
 // 运行下一步
@@ -95,7 +81,7 @@ RunningStatus RunLightActionIterator::FlashNextStep()
 {
     m_flashCnt--;
     if (m_flashCnt > 0) {
-        m_runLightColorCtrl.SetColor(m_lightColor);
+        m_colorCtrl.SetColor(m_lightColor);
         return RunningStatus::RUNNING;
     }
     if (m_lightColor == LightColor::BLACK) {
@@ -104,7 +90,7 @@ RunningStatus RunLightActionIterator::FlashNextStep()
 
     m_lightColor = LightColor::BLACK;
     m_flashCnt = m_lightAction.para2;
-    m_runLightColorCtrl.SetColor(m_lightColor);
+    m_colorCtrl.SetColor(m_lightColor);
     return RunningStatus::RUNNING;
 }
 
@@ -123,7 +109,7 @@ VOS_VOID RunLightActionIterator::StartLoop()
 
     m_actionStatus = RunningStatus::RUNNING;
     m_lightColor = m_lightAction.lightColor;
-    m_runLightColorCtrl.SetColor(m_lightColor);
+    m_colorCtrl.SetColor(m_lightColor);
     switch (m_lightAction.actionType) {
         case ActionType::FLASH: {
             m_flashCnt = m_lightAction.para1;

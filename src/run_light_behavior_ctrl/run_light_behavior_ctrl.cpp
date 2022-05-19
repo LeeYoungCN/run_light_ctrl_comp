@@ -1,23 +1,24 @@
 #include "run_light_behavior_ctrl.h"
 
 RunLightBehaviorCtrl::RunLightBehaviorCtrl(VOS_UINT16 lightId)
-    : m_actionItr(RunLightActionIterator(lightId))
+    : m_colorCtrl(RunLightColorCtrl(lightId))
 {}
 RunLightBehaviorCtrl::RunLightBehaviorCtrl(BreathLightPara breathLightPara)
-    : m_actionItr(RunLightActionIterator(breathLightPara))
+    : m_colorCtrl(RunLightColorCtrl(breathLightPara))
 {}
 
 RunLightBehaviorCtrl::RunLightBehaviorCtrl(BreathLightGroupPara breathLightGroupPara)
-    : m_actionItr(RunLightActionIterator(breathLightGroupPara))
+    : m_colorCtrl(RunLightColorCtrl(breathLightGroupPara))
 {}
 RunLightBehaviorCtrl::RunLightBehaviorCtrl(NormalLightGroupPara normalLightGropuPara)
-    : m_actionItr(RunLightActionIterator(normalLightGropuPara))
+    : m_colorCtrl(RunLightColorCtrl(normalLightGropuPara))
 {}
 
 // 初始化
-VOS_VOID RunLightBehaviorCtrl::Init(VOS_HANDEL_T handle, VOS_UINT32 lightIndex)
+VOS_VOID RunLightBehaviorCtrl::Init(VOS_HANDLE_T handle, VOS_UINT32 lightIndex)
 {
-    m_actionItr.Init(handle, lightIndex);
+    m_timer.Init(handle, lightIndex);
+    m_actionItr.Init(m_colorCtrl, m_timer);
 }
 
 // 设置行为

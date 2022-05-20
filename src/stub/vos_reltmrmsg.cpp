@@ -2,7 +2,7 @@
 #include "vos_handle.h"
 #include "run_light_ctrl_comp_log.h"
 
-VOS_UINT32 VOS_RelmrMsgStart(VOS_RELTMR_T* phTm,
+VOS_UINT32 VOS_ReltmrMsgStart(VOS_RELTMR_T* phTm,
                              VOS_HANDLE_T  Handle,
                              VOS_UINT32    uiLength,
                              VOS_UINT32    uiName,

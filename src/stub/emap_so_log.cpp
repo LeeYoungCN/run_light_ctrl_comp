@@ -25,7 +25,7 @@ const VOS_CHAR* GetFileName(const VOS_CHAR* filePath)
     VOS_UINT32 len = strlen(filePath);
     VOS_UINT32 startPos = 0;
     for (VOS_UINT32 i = 0; i < len; i++) {
-        if(filePath[i] == '\\') {
+        if(filePath[i] == '\\' || filePath[i] == '/') {
             startPos = i;
         }
     }

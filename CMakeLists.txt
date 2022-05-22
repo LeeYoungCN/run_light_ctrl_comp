@@ -32,5 +32,5 @@ link_directories(${GOOGLE_TEST_PATH}/lib/${CMAKE_SYSTEM_NAME})
 target_include_directories(${TEST_TARGET} PRIVATE ${GOOGLE_TEST_PATH})
 
 install(TARGETS ${LIB_NAME} ARCHIVE DESTINATION ${LIB_INSTALL_PATH} COMPONENT ${PROJECT_NAME})
-
-target_link_libraries(${TEST_TARGET} ${LIB_NAME} ${GTEST_LIB}/libgtest.a pthread)
+file(GLOB GTEST_LIBS ${GTEST_LIB}/*.a)
+target_link_libraries(${TEST_TARGET} ${LIB_NAME} ${GTEST_LIBS} pthread)

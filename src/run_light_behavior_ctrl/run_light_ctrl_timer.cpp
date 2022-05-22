@@ -13,7 +13,7 @@ VOS_UINT32 RunLightCtrlTimer::StartTimer(VOS_UINT32 delayTimeMs)
 {
     StopTimer();
     m_timerDelay = delayTimeMs;
-    VOS_UINT32 ret = VOS_RelmrMsgStart(
+    VOS_UINT32 ret = VOS_ReltmrMsgStart(
         &m_timerId, m_handle, m_timerDelay,m_timerName, 0, 0, VOS_RELTIMER_LOOP);
     if (ret != VOS_OK) {
         RLC_LOG_ERROR("Start timer;Fail;Index=%u;,Ret=%u", m_timerName, ret);

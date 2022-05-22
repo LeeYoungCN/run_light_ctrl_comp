@@ -29,7 +29,7 @@ VOS_VOID RunLightCtrlTimer::StopTimer()
     VOS_UINT32 ret = VOS_ReltmrStop(&m_timerId);
     m_timerId = VOS_NULL_PTR;
     if (ret != VOS_OK) {
-        RLC_LOG_ERROR("Stop timer;Fail;Index=%u;,Ret=%u", m_timerName, ret);
+        RLC_LOG_ERROR("Stop timer;Fail;Index=%u,Ret=%u", m_timerName, ret);
     }
 }
 

@@ -25,8 +25,8 @@ private:
     VOS_VOID CtrlBreathLightStatus(BreathLightPara lightPara, LightStatus LightStatus, VOS_UINT32 brightPct);
 
     LightType            m_lightType = LightType::NORMAL_LIGHT;
-    NormalLightGroupPara m_normalLightGropuPara {{0}};
-    BreathLightGroupPara m_breathLightGroupPara {{0}};
+    NormalLightGroupPara m_normalLightGropuPara {0, 0, 0};
+    BreathLightGroupPara m_breathLightGroupPara {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 };
 
 #endif // RUN_LIGHT_COLOR_CTRL_H

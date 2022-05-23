@@ -18,4 +18,11 @@ VOS_VOID EMAP_LogPrint(
     VOS_UINT32 u32Line,
     const VOS_CHAR *fmt, ...);
 
+enum class LogSwitch {
+    ON,
+    OFF
+};
+
+VOS_VOID InitLogPrint(LogSwitch logSwitch, VOS_UINT32 printLevel);
+
 #endif // EMAP_SO_LOG_H

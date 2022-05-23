@@ -3,7 +3,6 @@
 
 VOS_UINT32 VOS_ReltmrStop(VOS_RELTMR_T *phTm)
 {
-    RLC_LOG_EVENT("Stop timer");
-    return 0;
+    return VOS_OK;
 }
 

@@ -19,7 +19,7 @@ set(CMAKE_CXX_STANDARD 17)
 
 set(CODE_PATH   ${CMAKE_SOURCE_DIR}/src)
 set(TEST_PATH   ${CMAKE_SOURCE_DIR}/tests)
-set(STUB_PATH   ${CMAKE_SOURCE_DIR}/stub)
+
 set(CMAKE_C_FLAGS   "-Wall -g")
 set(CMAKE_CXX_FLAGS "-Wall -g")
 
@@ -27,11 +27,11 @@ add_executable(${TEST_TARGET})
 add_library(${LIB_NAME} STATIC)
 
 add_subdirectory(${CODE_PATH})
-add_subdirectory(${STUB_PATH})
 add_subdirectory(${TEST_PATH})
 
 link_directories(${GOOGLE_TEST_PATH}/lib/${CMAKE_SYSTEM_NAME})
 target_include_directories(${TEST_TARGET} PRIVATE ${GOOGLE_TEST_PATH})
+include_directories(${CMAKE_SOURCE_DIR}/platform)
 
 install(TARGETS ${LIB_NAME} ARCHIVE DESTINATION ${LIB_INSTALL_PATH} COMPONENT ${PROJECT_NAME})
 file(GLOB GTEST_LIBS ${GTEST_LIB}/*.a)

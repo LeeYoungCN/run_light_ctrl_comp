@@ -12,6 +12,7 @@ VOS_VOID RunLightCtrlTimer::Init(VOS_HANDLE_T handle, VOS_UINT32 timerName)
 VOS_UINT32 RunLightCtrlTimer::StartTimer(VOS_UINT32 delayTimeMs)
 {
     StopTimer();
+    RLC_LOG_DEBUG("Start timer;Start;Name=%u,Delay=%u", m_timerName, delayTimeMs);
     m_timerDelay = delayTimeMs;
     VOS_UINT32 ret = VOS_ReltmrMsgStart(
         &m_timerId, m_handle, m_timerDelay,m_timerName, 0, 0, VOS_RELTIMER_LOOP);
@@ -26,6 +27,7 @@ VOS_VOID RunLightCtrlTimer::StopTimer()
     if (m_timerId == VOS_NULL_PTR) {
         return;
     }
+    RLC_LOG_DEBUG("Stop timer;Start;Name=%u,Delay=%u", m_timerName, m_timerDelay);
     VOS_UINT32 ret = VOS_ReltmrStop(&m_timerId);
     m_timerId = VOS_NULL_PTR;
     if (ret != VOS_OK) {

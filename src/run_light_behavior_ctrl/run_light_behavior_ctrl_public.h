@@ -1,7 +1,10 @@
 #ifndef RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
 #define RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
 #include "vos_base.h"
+
+#ifndef U16_ITEM_OF
 #define U16_ITEM_OF(arr) static_cast<VOS_UINT32>(sizeof(arr) / sizeof(arr[0]))
+#endif
 
 // 颜色相关
 const VOS_UINT32 MAX_BRIGHT_PERCENT = 100;
@@ -57,6 +60,7 @@ enum class ActionType {
 struct LightAction {
     ActionType actionType;
     LightColor lightColor;
+    VOS_UINT32 brightPct;
     VOS_UINT32 delayTime;
     VOS_UINT32 para1;
     VOS_UINT32 para2;
@@ -67,7 +71,7 @@ struct LightBehaviorComp {
     VOS_UINT32  loopNum;     // 循环次数
 };
 
-struct LigtBehavior {
+struct LightBehavior {
     LightBehaviorComp *componentArr;
     VOS_UINT32         componentNum;
 };

@@ -12,7 +12,7 @@ public:
     explicit RunLightColorCtrl(BreathLightPara      breathLightPara);
     explicit RunLightColorCtrl(BreathLightGroupPara breathLightGroupPara);
     explicit RunLightColorCtrl(NormalLightGroupPara normalLightGropuPara);
-
+    VOS_VOID Init(VOS_UINT32 lightIndex);
     VOS_VOID SetColor(LightColor lightColor, VOS_UINT32 brightPct = MAX_BRIGHT_PERCENT);
 
 private:
@@ -25,6 +25,7 @@ private:
     VOS_VOID CtrlBreathLightStatus(BreathLightPara lightPara, LightStatus LightStatus, VOS_UINT32 brightPct);
 
     LightType            m_lightType = LightType::NORMAL_LIGHT;
+    VOS_UINT32           m_lightIndex = 0;
     NormalLightGroupPara m_normalLightGropuPara {0, 0, 0};
     BreathLightGroupPara m_breathLightGroupPara {{0, 0, 0}, {0, 0, 0}, {0, 0, 0}};
 };

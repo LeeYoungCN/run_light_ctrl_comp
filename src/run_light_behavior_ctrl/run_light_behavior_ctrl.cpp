@@ -18,13 +18,14 @@ RunLightBehaviorCtrl::RunLightBehaviorCtrl(NormalLightGroupPara normalLightGropu
 // 初始化
 VOS_VOID RunLightBehaviorCtrl::Init(VOS_HANDLE_T handle, VOS_UINT32 lightIndex)
 {
+    m_colorCtrl.Init(lightIndex);
     m_timer.Init(handle, lightIndex);
     m_actionItr.Init(m_colorCtrl, m_timer);
     RLC_LOG_EVENT("Init light behavior ctrl;OK;Index=%u", lightIndex);
 }
 
 // 设置行为
-VOS_VOID RunLightBehaviorCtrl::SetBehavior(const LigtBehavior &newBehavior)
+VOS_VOID RunLightBehaviorCtrl::SetBehavior(const LightBehavior &newBehavior)
 {
     m_currBehavior = newBehavior;
     m_runStage = 0;

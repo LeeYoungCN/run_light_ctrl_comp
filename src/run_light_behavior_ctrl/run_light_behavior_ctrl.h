@@ -16,12 +16,12 @@ public:
     explicit RunLightBehaviorCtrl(NormalLightGroupPara normalLightGropuPara);
 
     VOS_VOID Init(VOS_HANDLE_T handle, VOS_UINT32 lightIndex);
-    VOS_VOID SetBehavior(const LigtBehavior &newBehavior);
+    VOS_VOID SetBehavior(const LightBehavior &newBehavior);
     VOS_VOID Run(VOS_UINT32 timerName);
 
 private:
     VOS_UINT32   m_runStage = 0;
-    LigtBehavior m_currBehavior = {0};
+    LightBehavior m_currBehavior = {0};
     RunLightActionIterator m_actionItr;
 
     RunLightCtrlTimer m_timer;

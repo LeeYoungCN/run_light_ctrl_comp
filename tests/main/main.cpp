@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-    InitLogPrint(LogSwitch::ON, EMAP_PRINT_LEVEL_DEBUG);
+    InitLogPrint(LogSwitch::ON, EMAP_PRINT_LEVEL_ERROR);
 
     printf("Running main() from %s\n", __FILE__);
     testing::InitGoogleTest(&argc, argv);

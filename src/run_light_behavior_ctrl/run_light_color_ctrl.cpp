@@ -45,6 +45,11 @@ RunLightColorCtrl::RunLightColorCtrl(NormalLightGroupPara normalLightGropuPara)
       m_normalLightGropuPara(normalLightGropuPara)
 {}
 
+ VOS_VOID RunLightColorCtrl::Init(VOS_UINT32 lightIndex)
+ {
+     m_lightIndex = lightIndex;
+ }
+
 VOS_VOID RunLightColorCtrl::SetColor(LightColor lightColor, VOS_UINT32 brightPct)
 {
     switch (m_lightType) {
@@ -57,7 +62,7 @@ VOS_VOID RunLightColorCtrl::SetColor(LightColor lightColor, VOS_UINT32 brightPct
             break;
         }
         case LightType::NORMAL_LIGHT_GROUP: {
-            CtrlNormalLightColor(lightColor);
+            CtrlNormalLightGroupColor(lightColor);
             break;
         }
         default: {

@@ -6,7 +6,6 @@
 #include <iostream>
 
 namespace {
-    
     LogSwitch g_logSwitch = LogSwitch::OFF;
     VOS_UINT32 g_minimalLevel = EMAP_PRINT_LEVEL_ERROR;
 }

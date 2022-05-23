@@ -1,4 +1,5 @@
 #include "run_light_behavior_ctrl.h"
+#include "run_light_ctrl_comp_log.h"
 
 RunLightBehaviorCtrl::RunLightBehaviorCtrl(VOS_UINT16 lightId)
     : m_colorCtrl(RunLightColorCtrl(lightId))
@@ -19,6 +20,7 @@ VOS_VOID RunLightBehaviorCtrl::Init(VOS_HANDLE_T handle, VOS_UINT32 lightIndex)
 {
     m_timer.Init(handle, lightIndex);
     m_actionItr.Init(m_colorCtrl, m_timer);
+    RLC_LOG_EVENT("Init light behavior ctrl;OK;Index=%u", lightIndex);
 }
 
 // 设置行为

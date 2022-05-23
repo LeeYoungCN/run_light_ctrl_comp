@@ -5,11 +5,27 @@
 #include <ctime>
 #include <iostream>
 
+namespace {
+    
+    LogSwitch g_logSwitch = LogSwitch::OFF;
+    VOS_UINT32 g_minimalLevel = EMAP_PRINT_LEVEL_ERROR;
+}
+
 const VOS_CHAR* GetFileName(const VOS_CHAR* filePath);
 std::string GetTime();
 
+VOS_VOID InitLogPrint(LogSwitch logSwitch, VOS_UINT32 printLevel)
+{
+    g_logSwitch = logSwitch;
+    g_minimalLevel = printLevel;
+}
+
 VOS_VOID EMAP_LogPrint(VOS_UINT16 u16ModId, VOS_UINT8 u8Level, const VOS_CHAR *fileName, VOS_UINT32 u32Line, const VOS_CHAR *fmt, ...)
 {
+    if (g_logSwitch == LogSwitch::OFF || u8Level < g_minimalLevel) {
+        return;
+    }
+
     printf("%s %s[%u] ", GetTime().c_str(), GetFileName(fileName), u32Line);
 
     va_list ap;

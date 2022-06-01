@@ -1,9 +1,9 @@
 #include "test_normal_light_behavior_ctrl.h"
 #include "LedDriver.h"
-#include "light_status_manager.h"
+#include "test_light_status_manager.h"
 #include "run_light_ctrl_comp_log.h"
 
-struct TestLigtStatus {
+struct TestLightStatus {
     LightColor lightColor;
     VOS_UINT32 redStatus;
     VOS_UINT32 greenStatus;
@@ -11,7 +11,7 @@ struct TestLigtStatus {
 };
 
 namespace {
-    const TestLigtStatus TEST_LIGHT_STATUS_LIST[] = {
+    const TestLightStatus TEST_LIGHT_STATUS_LIST[] = {
         {LightColor::RED,    LED_ON,  LED_OFF, LED_OFF},
         {LightColor::GREEN,  LED_OFF, LED_ON,  LED_OFF},
         {LightColor::BLUE,   LED_OFF, LED_OFF, LED_ON},
@@ -128,7 +128,6 @@ VOS_VOID TestNormalLightBehaviorCtrl::TestNormalLightFlashAction(LightAction tes
 
 VOS_VOID TestNormalLightBehaviorCtrl::TestNormalLightColor(LightColor expectColor)
 {
-    RLC_LOG_EVENT("color = %u", static_cast<VOS_UINT32>(expectColor));
     for (VOS_UINT32 i = 0; i < TEST_LIGHT_STATUS_LIST_LEN; i++) {
         if (TEST_LIGHT_STATUS_LIST[i].lightColor != expectColor) {
             continue;
@@ -160,18 +159,21 @@ TEST_F(TestNormalLightBehaviorCtrl, FLASH)
     TestNormalLightBehavior(testBehavior);
 }
 
-TEST_F(TestNormalLightBehaviorCtrl, LoopChange)
+TEST_F(TestNormalLightBehaviorCtrl, MIX)
 {
     static LightBehaviorComp testComp[] = {
-        {NORMAL_RED, 1},
+        {NORMAL_RED,   1},
         {FLASH_YELLOW, 1},
         {NORMAL_GREEN, 2},
         {FLASH_PURPLE, 1},
-        {NORMAL_BLUE, 3}, 
+        {NORMAL_BLUE,  3}, 
     };
     static LightBehavior testBehavior = {
         .componentArr = testComp,
         .componentNum = U16_ITEM_OF(testComp)
     };
-    TestNormalLightBehavior(testBehavior);
+    for (VOS_UINT32 i = 0; i < 5; i++) {
+        TestNormalLightBehavior(testBehavior);
+    }
+    
 }

@@ -1,4 +1,4 @@
 add_subdirectory(main)
 add_subdirectory(test_run_light_behavior_ctrl)
 add_subdirectory(stub)
-add_subdirectory(light_status_manager)
+add_subdirectory(test_light_status_manager)

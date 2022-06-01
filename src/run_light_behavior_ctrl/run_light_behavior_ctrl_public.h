@@ -54,7 +54,8 @@ struct BreathLightGroupPara {
 enum class ActionType {
     NORMAL,
     FLASH,
-    BREATH,
+    BREATH_LINE,
+    BREATH_CURVE,
 };
 
 struct LightAction {

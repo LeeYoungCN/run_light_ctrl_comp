@@ -50,7 +50,7 @@ RunLightColorCtrl::RunLightColorCtrl(NormalLightGroupPara normalLightGropuPara)
      m_lightIndex = lightIndex;
  }
 
-VOS_VOID RunLightColorCtrl::SetColor(LightColor lightColor, VOS_UINT32 brightPct)
+VOS_VOID RunLightColorCtrl::SetColor(LightColor lightColor, VOS_FLOAT brightPct)
 {
     switch (m_lightType) {
         case LightType::NORMAL_LIGHT: {
@@ -107,7 +107,7 @@ VOS_VOID RunLightColorCtrl::CtrlNormalLightStatus(VOS_UINT16 lightId, LightStatu
     }
 }
 
-VOS_VOID RunLightColorCtrl::CtrlBreathLightColor(LightColor lightColor, VOS_UINT32 brightPct)
+VOS_VOID RunLightColorCtrl::CtrlBreathLightColor(LightColor lightColor, VOS_FLOAT brightPct)
 {
     if (lightColor == LightColor::BLACK) {
         CtrlBreathLightStatus(m_breathLightGroupPara.redLight, LightStatus::OFF, brightPct);
@@ -116,7 +116,7 @@ VOS_VOID RunLightColorCtrl::CtrlBreathLightColor(LightColor lightColor, VOS_UINT
     }
 }
 
-VOS_VOID RunLightColorCtrl::CtrlBreathLightGroupColor(LightColor lightColor, VOS_UINT32 brightPct)
+VOS_VOID RunLightColorCtrl::CtrlBreathLightGroupColor(LightColor lightColor, VOS_FLOAT brightPct)
 {
     for (VOS_UINT32 i = 0; i < LIST_LEN; i++) {
         if (LIGHT_COLOR_CTRL_PARA_LIST[i].lightColor != lightColor) {
@@ -129,11 +129,11 @@ VOS_VOID RunLightColorCtrl::CtrlBreathLightGroupColor(LightColor lightColor, VOS
     }
 }
 
-VOS_VOID RunLightColorCtrl::CtrlBreathLightStatus(BreathLightPara lightPara, LightStatus lightStatus, VOS_UINT32 brightPct)
+VOS_VOID RunLightColorCtrl::CtrlBreathLightStatus(BreathLightPara lightPara, LightStatus lightStatus, VOS_FLOAT brightPct)
 {
-    VOS_UINT32 compare = 0;
+    VOS_FLOAT compare = 0;
     if (lightStatus != LightStatus::ON) {
-        compare = brightPct * lightPara.maxCompare / MAX_BRIGHT_PERCENT;
+        compare = brightPct * static_cast<VOS_FLOAT>(lightPara.maxCompare) / MAX_BRIGHT_PERCENT;
     }
-    DRV_PwmDutyWrite(lightPara.gptId, lightPara.gptchl, compare);
+    DRV_PwmDutyWrite(lightPara.gptId, lightPara.gptchl, static_cast<VOS_UINT32>(compare));
 }

@@ -50,6 +50,9 @@ VOS_VOID RunLightActionIterator::ActionNextStep()
             currActionStatus = NoarmalNextStep();
             break;
         }
+        case ActionType::BREATH_LINE: {
+            break;
+        }
         default: {
             break;
         }
@@ -79,8 +82,8 @@ VOS_VOID RunLightActionIterator::NextLoop()
 // 闪烁动作下一步
 RunningStatus RunLightActionIterator::FlashNextStep()
 {
-    m_flashCnt--;
-    if (m_flashCnt > 0) {
+    m_counter--;
+    if (m_counter > 0) {
         m_colorCtrl.SetColor(m_lightColor);
         return RunningStatus::RUNNING;
     }
@@ -89,7 +92,7 @@ RunningStatus RunLightActionIterator::FlashNextStep()
     }
 
     m_lightColor = LightColor::BLACK;
-    m_flashCnt = m_lightAction.para2;
+    m_counter = m_lightAction.para2;
     m_colorCtrl.SetColor(m_lightColor);
     return RunningStatus::RUNNING;
 }
@@ -109,13 +112,21 @@ VOS_VOID RunLightActionIterator::StartLoop()
 
     m_actionStatus = RunningStatus::RUNNING;
     m_lightColor = m_lightAction.lightColor;
-    m_colorCtrl.SetColor(m_lightColor);
     switch (m_lightAction.actionType) {
+        case ActionType::NORMAL: {
+            m_colorCtrl.SetColor(m_lightColor);
+            break;
+        }
         case ActionType::FLASH: {
-            m_flashCnt = m_lightAction.para1;
+            m_colorCtrl.SetColor(m_lightColor);
+            m_counter = m_lightAction.para1;
             break;
         }
         default: {
+            m_brightPct = 0.0;
+            m_counter = m_lightAction.para1;
+            m_btightDelta = MAX_BRIGHT_PERCENT / static_cast<VOS_FLOAT>(m_counter);
+            m_colorCtrl.SetColor(m_lightColor, m_brightPct);
             break;
         }
     };

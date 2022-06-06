@@ -1,6 +1,6 @@
 #ifndef SYSTEM_STATUS_SAMPLE_H
 #define SYSTEM_STATUS_SAMPLE_H
-#include "vos_base.h"
+#include "system_status_manager_def.h"
 
 // 状态代号
 const VOS_UINT32 SYSTEM_STATUS_UPGREADE   = 0x1001; // 升级

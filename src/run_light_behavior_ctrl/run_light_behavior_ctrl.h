@@ -1,7 +1,7 @@
 #ifndef LIGHT_RUNNING_CTRL_BASE_H
 #define LIGHT_RUNNING_CTRL_BASE_H
 #include "vos_base.h"
-#include "run_light_behavior_ctrl_public.h"
+#include "run_light_behavior_ctrl_def.h"
 #include "run_light_action_iterator.h"
 #include "run_light_ctrl_timer.h"
 #include "run_light_color_ctrl.h"

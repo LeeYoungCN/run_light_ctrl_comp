@@ -1,5 +1,5 @@
-#ifndef RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
-#define RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
+#ifndef RUN_LIGHT_BEHAVIOR_CTRL_DEF_H
+#define RUN_LIGHT_BEHAVIOR_CTRL_DEF_H
 #include "vos_base.h"
 
 #ifndef U16_ITEM_OF
@@ -7,7 +7,7 @@
 #endif
 
 // 颜色相关
-const VOS_UINT32 MAX_BRIGHT_PERCENT = 100;
+const VOS_FLOAT MAX_BRIGHT_PERCENT = 100.0;
 
 enum class LightType {
     NORMAL_LIGHT,
@@ -61,7 +61,7 @@ enum class ActionType {
 struct LightAction {
     ActionType actionType;
     LightColor lightColor;
-    VOS_UINT32 brightPct;
+    VOS_FLOAT brightPct;
     VOS_UINT32 delayTime;
     VOS_UINT32 para1;
     VOS_UINT32 para2;
@@ -77,4 +77,4 @@ struct LightBehavior {
     VOS_UINT32         componentNum;
 };
 
-#endif // RUN_LIGHT_BEHAVIOR_CTRL_PUBLIC_H
+#endif // RUN_LIGHT_BEHAVIOR_CTRL_DEF_H

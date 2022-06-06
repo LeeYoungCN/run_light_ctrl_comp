@@ -12,9 +12,9 @@ if [ ! -d buildcache ]; then
     mkdir buildcache
 fi
 
-if [ "$1" = "clean" ]; then
-    rm -rf ${cache_path}
-fi
+
+rm -rf ${cache_path}/*
+
 rm -rf ${output_path}
 rm -rf ${release_path}
 

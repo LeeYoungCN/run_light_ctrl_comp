@@ -6,37 +6,38 @@ class EquipSigManager {
 public:
     EquipSigManager() = default;
     EquipSigManager(VOS_UINT32 equipId, EquipSigCfg equipSigCfg);
+
     // 设备增删
-    VOS_VOID AddEquip(VOS_UINT16 typeId, VOS_UINT16 equipId, VOS_UINT16 phySlot);
-    VOS_VOID DelEquip(VOS_UINT16 typeId, VOS_UINT16 equipId);
+    VOS_VOID AddEquip();
+    VOS_VOID DelEquip();
     // 获取属性
     VOS_UINT16 GetTypeId() const;
     VOS_UINT16 GetEquipId() const;
     VOS_BOOL   IsNeedRegAlmReport() const;
     // 获取信号值
-    VOS_UINT16 GetSetSigVal(VOS_UINT16 setSigId, VOS_UINT32 &sigVal) const;
-    VOS_UINT16 GetSetSigVal(VOS_UINT16 setSigId, VOS_INT32  &sigVal) const;
-    VOS_UINT16 GetSetSigVal(VOS_UINT16 setSigId, VOS_FLOAT  &sigVal) const;
-    VOS_UINT16 GetAlmSigVal(VOS_UINT16 almSigId, VOS_UINT32 &sigVal) const;
+    VOS_UINT16 GetSignalValue(VOS_UINT16 sigId, VOS_UINT32 &sigVal) const;
+    VOS_UINT16 GetSignalValue(VOS_UINT16 sigId, VOS_INT32  &sigVal) const;
+    VOS_UINT16 GetSignalValue(VOS_UINT16 sigId, VOS_FLOAT  &sigVal) const;
+    VOS_UINT16 GetAlarmStatusl(VOS_UINT16 almId, VOS_UINT32 &status) const;
     // 信号值刷新
-    VOS_UINT16 RefreshSetSigVal(VOS_UINT16 setSigId, VOS_UINT8 *sigVal, VOS_UINT32 sigSize);
-    VOS_UINT16 RefreshAlmSigVal(VOS_UINT16 almSigId, VOS_UINT32 sigVal);
+    VOS_UINT16 RefreshSignalValue(VOS_UINT16 sigId, VOS_UINT32 sigVal);
+    VOS_UINT16 RefreshAlarmStatus(VOS_UINT16 almId, VOS_UINT32 status);
 
-    VOS_UINT16 IsMySigId(VOS_UINT16 typeId, VOS_UINT16 equipId, VOS_UINT16 sigId);
+    VOS_BOOL IsMyEqupId(VOS_UINT16 equipId) const;
 
 private:
     VOS_BOOL   IsCreated() const;
     VOS_BOOL   IsRegReport() const;
-    VOS_UINT32 GetSigIdIndex(VOS_UINT16 sigId, SigInfo *sigInfo, VOS_UINT32 sigNum) const;
+    VOS_UINT32 FindSigIdIndex(VOS_UINT16 sigId) const;
+    VOS_UINT32 FindAlmIdIndex(VOS_UINT16 almId) const;
 
     VOS_UINT16 m_equipId = 0;
     VOS_UINT16 m_typeId  = 0;
-    VOS_UINT16 m_phySlot = 0;
 
-    SigInfo   *m_setSigInfo = VOS_NULL_PTR;
-    VOS_UINT32 m_setSigNum  = 0;
-    SigInfo   *m_almSigInfo = VOS_NULL_PTR;
-    VOS_UINT32 m_almSigNum  = 0;
+    RlcCompSigInfo *m_sigInfoArr = VOS_NULL_PTR;
+    VOS_UINT32      m_sigInfoNum = 0;
+    RlcComAlmInfo  *m_almInfoArr = VOS_NULL_PTR;
+    VOS_UINT32      m_almInfoNum = 0;
 
     VOS_BOOL   m_isRegRport = VOS_FALSE;
     VOS_BOOL   m_isCreated  = VOS_FALSE;

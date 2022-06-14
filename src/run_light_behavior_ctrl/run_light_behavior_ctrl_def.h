@@ -7,7 +7,8 @@
 #endif
 
 // 颜色相关
-const VOS_FLOAT MAX_BRIGHT_PERCENT = 100.0;
+const VOS_UINT32 MAX_BRIGHT_PERCENT_FLOAT = 100.00;
+const VOS_UINT32 MAX_BRIGHT_PERCENT   = 100;
 
 enum class LightType {
     NORMAL_LIGHT,
@@ -54,14 +55,13 @@ struct BreathLightGroupPara {
 enum class ActionType {
     NORMAL,
     FLASH,
-    BREATH_LINE,
-    BREATH_CURVE,
+    BREATH,
 };
 
 struct LightAction {
     ActionType actionType;
     LightColor lightColor;
-    VOS_FLOAT brightPct;
+    VOS_UINT32 brightPct;
     VOS_UINT32 delayTime;
     VOS_UINT32 para1;
     VOS_UINT32 para2;

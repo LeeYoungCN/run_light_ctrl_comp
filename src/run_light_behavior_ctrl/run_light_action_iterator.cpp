@@ -1,4 +1,8 @@
 #include "run_light_action_iterator.h"
+#include "run_light_behavior_ctrl_public_func.h"
+
+#define TO_FLOAT(num) static_cast<VOS_FLOAT>(num)
+#define TO_U32(num)   static_cast<VOS_UINT32>(num)
 
 VOS_VOID RunLightActionIterator::Init(RunLightColorCtrl &colorCtrl, RunLightCtrlTimer &timer)
 {
@@ -9,11 +13,18 @@ VOS_VOID RunLightActionIterator::Init(RunLightColorCtrl &colorCtrl, RunLightCtrl
 // 开始运行动作迭代器
 VOS_VOID RunLightActionIterator::StartIterator(const LightBehaviorComp &behaviorComp)
 {
+    // 校验参数
+    if (!IsValidBehaviorComp(behaviorComp)) {
+        return;
+    }
+
     m_lightAction = behaviorComp.lightAction;
     m_loopNum     = behaviorComp.loopNum;
     m_iteratorStatus = RunningStatus::RUNNING;
     if (m_loopNum == LOOP_INFINITE) {
         m_iteratorType = IteratorType::INFINITE;
+    } else {
+        m_iteratorType = IteratorType::FINITE;
     }
     if (m_itrTimer.StartTimer(m_lightAction.delayTime) == VOS_OK) {
         StartLoop();
@@ -50,7 +61,8 @@ VOS_VOID RunLightActionIterator::ActionNextStep()
             currActionStatus = NoarmalNextStep();
             break;
         }
-        case ActionType::BREATH_LINE: {
+        case ActionType::BREATH: {
+            currActionStatus = BreathNextStep();
             break;
         }
         default: {
@@ -58,6 +70,35 @@ VOS_VOID RunLightActionIterator::ActionNextStep()
         }
     }
     m_actionStatus = currActionStatus;
+}
+
+RunningStatus RunLightActionIterator::BreathNextStep()
+{
+    m_counter--;
+    if (m_counter > 0) {
+        m_colorCtrl.SetColor(m_lightColor, CalBrightPercent());
+        return RunningStatus::RUNNING;
+    }
+    if (m_brightDelta < 0) {
+        return RunningStatus::FINISH;
+    }
+    m_counter = m_lightAction.para2;
+    m_brightPercent = MAX_BRIGHT_PERCENT_FLOAT;
+    m_brightDelta = -(MAX_BRIGHT_PERCENT_FLOAT / TO_FLOAT(m_lightAction.para2));
+    m_colorCtrl.SetColor(m_lightColor, MAX_BRIGHT_PERCENT);
+    return RunningStatus::RUNNING;
+}
+
+VOS_UINT32 RunLightActionIterator::CalBrightPercent()
+{
+    m_brightPercent += m_brightDelta;
+    if (m_brightPercent < 0) {
+        return 0;
+    } else if (TO_U32(m_brightPercent) > MAX_BRIGHT_PERCENT) {
+        return MAX_BRIGHT_PERCENT;
+    } else {
+        return TO_U32(m_brightPercent);
+    }
 }
 
 // 下一循环
@@ -71,7 +112,7 @@ VOS_VOID RunLightActionIterator::NextLoop()
         m_loopNum--;
     }
 
-    if (m_loopNum  > 0) {
+    if (m_loopNum > 0) {
         StartLoop();
     } else {
         m_iteratorStatus = RunningStatus::FINISH;
@@ -122,12 +163,14 @@ VOS_VOID RunLightActionIterator::StartLoop()
             m_counter = m_lightAction.para1;
             break;
         }
-        default: {
-            m_brightPct = 0.0;
+        case ActionType::BREATH: {
             m_counter = m_lightAction.para1;
-            m_btightDelta = MAX_BRIGHT_PERCENT / static_cast<VOS_FLOAT>(m_counter);
-            m_colorCtrl.SetColor(m_lightColor, m_brightPct);
+            m_brightPercent = 0;
+            m_brightDelta = MAX_BRIGHT_PERCENT_FLOAT / TO_FLOAT(m_lightAction.para1);
+            m_colorCtrl.SetColor(m_lightColor, m_brightPercent);
             break;
         }
+        default:
+            break;
     };
 }

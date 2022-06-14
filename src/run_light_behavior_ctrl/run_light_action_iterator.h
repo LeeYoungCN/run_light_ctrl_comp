@@ -34,14 +34,17 @@ private:
 
     RunningStatus FlashNextStep();
     RunningStatus NoarmalNextStep();
+    RunningStatus BreathNextStep();
+
+    VOS_UINT32    CalBrightPercent();
 
 private:
     COMP_TIMER   m_itrTimer;
 
     VOS_UINT32    m_counter         = 0;
     VOS_UINT32    m_loopNum         = 0;
-    VOS_FLOAT     m_brightPct       = 0.0;
-    VOS_FLOAT     m_btightDelta     = 0.0;
+    VOS_FLOAT     m_brightPercent   = 0;
+    VOS_FLOAT     m_brightDelta     = 0;
 
     LightColor    m_lightColor      = LightColor::BLACK;
     LightAction   m_lightAction     = {ActionType::NORMAL, LightColor::BLACK, 0, 0, 0};

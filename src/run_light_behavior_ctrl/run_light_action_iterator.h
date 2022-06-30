@@ -47,7 +47,7 @@ private:
     VOS_FLOAT     m_brightDelta     = 0;
 
     LightColor    m_lightColor      = LightColor::BLACK;
-    LightAction   m_lightAction     = {ActionType::NORMAL, LightColor::BLACK, 0, 0, 0};
+    LightAction   m_lightAction     = {ActionType::CONST, LightColor::BLACK, 0, 0, 0};
     IteratorType  m_iteratorType    = IteratorType::FINITE;
 
     RunningStatus m_actionStatus    = RunningStatus::FINISH;

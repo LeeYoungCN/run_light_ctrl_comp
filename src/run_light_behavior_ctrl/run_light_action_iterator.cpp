@@ -57,7 +57,7 @@ VOS_VOID RunLightActionIterator::ActionNextStep()
             currActionStatus = FlashNextStep();
             break;
         }
-        case ActionType::NORMAL: {
+        case ActionType::CONST: {
             currActionStatus = NoarmalNextStep();
             break;
         }
@@ -85,7 +85,7 @@ RunningStatus RunLightActionIterator::BreathNextStep()
     m_counter = m_lightAction.para2;
     m_brightPercent = MAX_BRIGHT_PERCENT_FLOAT;
     m_brightDelta = -(MAX_BRIGHT_PERCENT_FLOAT / TO_FLOAT(m_lightAction.para2));
-    m_colorCtrl.SetColor(m_lightColor, MAX_BRIGHT_PERCENT);
+    m_colorCtrl.SetColor(m_lightColor, MAX_LUMINANCE);
     return RunningStatus::RUNNING;
 }
 
@@ -94,8 +94,8 @@ VOS_UINT32 RunLightActionIterator::CalBrightPercent()
     m_brightPercent += m_brightDelta;
     if (m_brightPercent < 0) {
         return 0;
-    } else if (TO_U32(m_brightPercent) > MAX_BRIGHT_PERCENT) {
-        return MAX_BRIGHT_PERCENT;
+    } else if (TO_U32(m_brightPercent) > MAX_LUMINANCE) {
+        return MAX_LUMINANCE;
     } else {
         return TO_U32(m_brightPercent);
     }
@@ -154,7 +154,7 @@ VOS_VOID RunLightActionIterator::StartLoop()
     m_actionStatus = RunningStatus::RUNNING;
     m_lightColor = m_lightAction.lightColor;
     switch (m_lightAction.actionType) {
-        case ActionType::NORMAL: {
+        case ActionType::CONST: {
             m_colorCtrl.SetColor(m_lightColor);
             break;
         }

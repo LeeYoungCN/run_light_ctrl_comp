@@ -2,7 +2,7 @@
 
 VOS_BOOL IsValidAction(const LightAction &testAction)
 {
-    if ((testAction.actionType != ActionType::NORMAL) &&
+    if ((testAction.actionType != ActionType::CONST) &&
         ((testAction.para1 == 0) || (testAction.para2 == 0))) {
         return VOS_FALSE;
     }

@@ -3,7 +3,7 @@
 #include "run_light_const_action_ctrl.h"
 #include "run_light_flash_action_ctrl.h"
 
-RunLightActionCtrlBase *RunLightActionCtrlFactory::CreateRunLightAction(const LightActionPara &actionPara)
+RunLightActionCtrlBase *RunLightActionCtrlFactory::CreateRunLightAction(const LightAction &actionPara)
 {
     RunLightActionCtrlBase *ret = VOS_NULL_PTR;
     switch (actionPara.actionType) {

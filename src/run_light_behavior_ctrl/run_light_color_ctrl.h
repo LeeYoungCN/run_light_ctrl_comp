@@ -13,7 +13,7 @@ public:
     explicit RunLightColorCtrl(BreathLightGroupPara breathLightGroupPara);
     explicit RunLightColorCtrl(NormalLightGroupPara normalLightGropuPara);
     VOS_VOID Init(VOS_UINT32 lightIndex);
-    VOS_VOID SetColor(LightColor lightColor, VOS_UINT32 brightPct = MAX_BRIGHT_PERCENT);
+    VOS_VOID SetColor(LightColor lightColor, VOS_UINT32 brightPct = MAX_LUMINANCE);
 
 private:
     VOS_VOID CtrlNormalLightColor(LightColor lightColor);

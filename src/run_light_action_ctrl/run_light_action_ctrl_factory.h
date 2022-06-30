@@ -5,7 +5,7 @@
 
 class RunLightActionCtrlFactory {
 public:
-    static RunLightActionCtrlBase *CreateRunLightAction(const LightActionPara &actionPara);
+    static RunLightActionCtrlBase *CreateRunLightAction(const LightAction &actionPara);
 };
 
 #endif // RUN_LIGHT_ACTION_FACTORY_H

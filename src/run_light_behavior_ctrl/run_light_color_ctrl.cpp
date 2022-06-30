@@ -133,7 +133,7 @@ VOS_VOID RunLightColorCtrl::CtrlBreathLightStatus(BreathLightPara lightPara, Lig
 {
     VOS_UINT32 compare = 0;
     if (lightStatus == LightStatus::ON) {
-        compare = brightPct * lightPara.maxCompare / MAX_BRIGHT_PERCENT;
+        compare = brightPct * lightPara.maxCompare / MAX_LUMINANCE;
     }
     DRV_PwmDutyWrite(lightPara.gptId, lightPara.gptchl, static_cast<VOS_UINT32>(compare));
 }

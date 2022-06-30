@@ -25,27 +25,27 @@ namespace {
     const VOS_UINT32 TEST_LIGHT_STATUS_LIST_LEN = U16_ITEM_OF(TEST_LIGHT_STATUS_LIST);
 
     LightAction NORMAL_RED = {
-        .actionType = ActionType::NORMAL,
+        .actionType = ActionType::CONST,
         .lightColor = LightColor::RED,
-        .brightPct = MAX_BRIGHT_PERCENT,
+        .luminace = MAX_LUMINANCE,
         .delayTime = 100,
         .para1 = 0,
         .para2 = 0
     };
 
     LightAction NORMAL_GREEN = {
-        .actionType = ActionType::NORMAL,
+        .actionType = ActionType::CONST,
         .lightColor = LightColor::GREEN,
-        .brightPct = MAX_BRIGHT_PERCENT,
+        .luminace = MAX_LUMINANCE,
         .delayTime = 200,
         .para1 = 0,
         .para2 = 0
     };
 
     LightAction NORMAL_BLUE = {
-        .actionType = ActionType::NORMAL,
+        .actionType = ActionType::CONST,
         .lightColor = LightColor::BLUE,
-        .brightPct = MAX_BRIGHT_PERCENT,
+        .luminace = MAX_LUMINANCE,
         .delayTime = 300,
         .para1 = 0,
         .para2 = 0
@@ -54,7 +54,7 @@ namespace {
     LightAction FLASH_YELLOW = {
         .actionType = ActionType::FLASH,
         .lightColor = LightColor::YELLOW,
-        .brightPct = MAX_BRIGHT_PERCENT,
+        .luminace = MAX_LUMINANCE,
         .delayTime = 300,
         .para1 = 10,
         .para2 = 5
@@ -63,7 +63,7 @@ namespace {
     LightAction FLASH_PURPLE = {
         .actionType = ActionType::FLASH,
         .lightColor = LightColor::PURPLE,
-        .brightPct = MAX_BRIGHT_PERCENT,
+        .luminace = MAX_LUMINANCE,
         .delayTime = 400,
         .para1 = 1,
         .para2 = 1
@@ -97,7 +97,7 @@ VOS_VOID TestNormalLightBehaviorCtrl::TestNormalLightBehavior(LightBehavior test
 VOS_VOID TestNormalLightBehaviorCtrl::TestNormalLightAction(LightAction testAction)
 {
     switch (testAction.actionType) {
-        case ActionType::NORMAL: {
+        case ActionType::CONST: {
             TestNormalLightColor(testAction.lightColor);
             m_testInst.Run(m_lightIndex);
             break;

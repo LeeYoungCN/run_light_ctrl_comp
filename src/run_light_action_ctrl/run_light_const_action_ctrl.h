@@ -6,13 +6,15 @@
 
 class RunLightConstActionCtrl : public RunLightActionCtrlBase {
 public:
-    RunLightConstActionCtrl(const LightActionPara &actionPara, const RunLightColorCtrlBase *lightColorCtrl);
+    RunLightConstActionCtrl(const LightAction &actionPara);
     virtual ~RunLightConstActionCtrl() = default;
 
-    virtual VOS_UINT32   StartLoop();
-    virtual ActionStatus NextStep();
+    virtual VOS_UINT32   StartLoop(RunLightColorCtrlBase *colorCtrlInst) override;
+    virtual ActionStatus NextStep() override;
+    virtual VOS_BOOL     IsValidActionPara() override;
 private:
-    const LightActionPara m_actionPara;
+    const LightAction m_actionPara;
+    RunLightColorCtrlBase *m_colorCtrlInst = VOS_NULL_PTR;
 };
 
 #endif // RUN_LIGHT_CONST_ACTION_H

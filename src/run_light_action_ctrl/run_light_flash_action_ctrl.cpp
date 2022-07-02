@@ -10,14 +10,15 @@ VOS_UINT32 RunLightFlashActionCtrl::StartLoop(RunLightColorCtrlBase *colorCtrlIn
         return VOS_ERR;
     }
     m_lightColor = m_actionPara.lightColor;
-    m_counter.StartCount(m_actionPara.para1);
+    m_counter.SetCountNum(m_actionPara.para1);
     SetColor(m_lightColor, MAX_LUMINANCE);
     return VOS_OK;
 }
 
 ActionStatus RunLightFlashActionCtrl::NextStep()
 {
-    if (m_counter.IsFinish()) {
+    m_counter.Count();
+    if (!m_counter.IsFinish()) {
         SetColor(m_lightColor, MAX_LUMINANCE);
         return ActionStatus::RUNNING;
     }
@@ -27,7 +28,7 @@ ActionStatus RunLightFlashActionCtrl::NextStep()
     }
 
     m_lightColor = LightColor::BLACK;
-    m_counter.StartCount(m_actionPara.para2);
+    m_counter.SetCountNum(m_actionPara.para2);
     SetColor(m_lightColor, MAX_LUMINANCE);
     return ActionStatus::RUNNING;
 }

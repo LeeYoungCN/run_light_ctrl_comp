@@ -14,7 +14,6 @@ public:
     virtual VOS_BOOL     IsValidPara() override;
 private:
     const LightAction m_actionPara;
-    RunLightColorCtrlBase *m_colorCtrlInst = VOS_NULL_PTR;
 };
 
 #endif // RUN_LIGHT_CONST_ACTION_H

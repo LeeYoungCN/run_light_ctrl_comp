@@ -1,5 +1,5 @@
-#ifndef RUN_LIGHT_LINE_BREATH_ACTION_CTRL_H
-#define RUN_LIGHT_LINE_BREATH_ACTION_CTRL_H
+#ifndef RUN_LIGHT_BREATH_ACTION_CTRL_H
+#define RUN_LIGHT_BREATH_ACTION_CTRL_H
 #include "run_light_action_ctrl_base.h"
 #include "run_light_action_ctrl_def.h"
 #include "run_light_ctrl_comp_counter.h"
@@ -9,10 +9,10 @@ enum class BreathOperate : VOS_UINT32 {
     SUB
 };
 
-class RunLightLineBreathActionCtrl : public RunLightActionCtrlBase {
+class RunLightBreathActionCtrl : public RunLightActionCtrlBase {
 public:
-    RunLightLineBreathActionCtrl(const LightAction &actionPara);
-    virtual ~RunLightLineBreathActionCtrl() = default;
+    RunLightBreathActionCtrl(const LightAction &actionPara);
+    virtual ~RunLightBreathActionCtrl() = default;
 
     virtual VOS_UINT32   StartLoop(RunLightColorCtrlBase *colorCtrlInst) override;
     virtual ActionStatus NextStep() override;
@@ -28,4 +28,4 @@ private:
     BreathOperate m_operate = BreathOperate::ADD;
 };
 
-#endif // RUN_LIGHT_LINE_BREATH_ACTION_CTRL_H
+#endif // RUN_LIGHT_BREATH_ACTION_CTRL_H

@@ -1,14 +1,19 @@
 #include "run_light_ctrl_comp_counter.h"
 
-VOS_VOID RunLightCtrlCompCounter::StartCount(VOS_UINT32 countNum)
+VOS_VOID RunLightCtrlCompCounter::SetCountNum(VOS_UINT32 countNum)
 {
-    m_cntNum = countNum;
+    m_countNum = countNum;
+}
+
+VOS_VOID RunLightCtrlCompCounter::Count()
+{
+    if (m_countNum == 0) {
+        return;
+    }
+    m_countNum--;
 }
 
 VOS_BOOL RunLightCtrlCompCounter::IsFinish()
 {
-    if (m_cntNum > 0) {
-        m_cntNum--;
-    }
-    return (m_cntNum == 0);
+    return (m_countNum == 0);
 }

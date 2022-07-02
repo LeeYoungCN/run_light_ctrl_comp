@@ -32,7 +32,7 @@ ActionStatus RunLightFlashActionCtrl::NextStep()
     return ActionStatus::RUNNING;
 }
 
-VOS_BOOL RunLightFlashActionCtrl:: IsValidActionPara()
+VOS_BOOL RunLightFlashActionCtrl:: IsValidPara()
 {
     if ((m_actionPara.lightColor == LightColor::BLACK) ||
         (m_actionPara.para1 == 0) ||

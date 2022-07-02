@@ -11,7 +11,7 @@ public:
 
     virtual VOS_UINT32   StartLoop(RunLightColorCtrlBase *colorCtrlInst) override;
     virtual ActionStatus NextStep() override;
-    virtual VOS_BOOL     IsValidActionPara() override;
+    virtual VOS_BOOL     IsValidPara() override;
 private:
     const LightAction m_actionPara;
     RunLightColorCtrlBase *m_colorCtrlInst = VOS_NULL_PTR;

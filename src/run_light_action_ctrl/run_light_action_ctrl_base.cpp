@@ -9,7 +9,7 @@ RunLightActionCtrlBase::~RunLightActionCtrlBase()
 
 VOS_UINT32 RunLightActionCtrlBase::Init(RunLightColorCtrlBase *colorCtrlInst)
 {
-    if ((colorCtrlInst == VOS_NULL_PTR) || (!IsValidActionPara())) {
+    if ((colorCtrlInst == VOS_NULL_PTR) || (!IsValidPara())) {
         return VOS_ERR;
     }
     m_lightColorCtrlInst = colorCtrlInst;

@@ -19,7 +19,7 @@ ActionStatus RunLightConstActionCtrl::NextStep()
     return ActionStatus::FINISH;
 }
 
-VOS_BOOL RunLightConstActionCtrl::IsValidActionPara()
+VOS_BOOL RunLightConstActionCtrl::IsValidPara()
 {
     return VOS_TRUE;
 }

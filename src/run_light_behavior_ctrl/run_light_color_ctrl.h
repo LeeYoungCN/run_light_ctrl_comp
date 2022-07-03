@@ -2,8 +2,9 @@
 #define RUN_LIGHT_COLOR_CTRL_H
 #include "vos_base.h"
 #include "run_light_behavior_ctrl_def.h"
+#include "run_light_action_ctrl_base.h"
 
-class RunLightColorCtrl {
+class RunLightColorCtrl : public RunLightColorCtrlBase {
 public:
     RunLightColorCtrl() = default;
     ~RunLightColorCtrl() = default;

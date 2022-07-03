@@ -3,8 +3,8 @@
 #include "run_light_color_ctrl_def.h"
 class RunLightColorCtrlBase {
 public:
-    RunLightColorCtrlBase();
-    ~RunLightColorCtrlBase();
+    RunLightColorCtrlBase() = default;
+    ~RunLightColorCtrlBase() = default;
 
     virtual VOS_VOID SetColor(LightColor colorType, VOS_UINT32 luminance = 100) = 0;
 };

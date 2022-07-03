@@ -36,8 +36,8 @@ private:
     VOS_VOID ProcProdMsg();
     VOS_VOID ProcTimeMsg();
 
-    VOS_UINT32 m_almNum = 0; // 告警数量
-    VOS_UINT32 *m_statusList = VOS_NULL_PTR;
+    // VOS_UINT32 m_almNum = 0; // 告警数量
+    // VOS_UINT32 *m_statusList = VOS_NULL_PTR;
 
 };
 // 升级 > 待机 > 工作

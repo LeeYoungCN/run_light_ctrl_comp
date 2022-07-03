@@ -5,7 +5,7 @@ RunLightBreathActionCtrl::RunLightBreathActionCtrl(const LightAction &actionPara
     : m_actionPara(actionPara) 
 {}
 
-VOS_UINT32 RunLightBreathActionCtrl::StartLoop(RunLightColorCtrlBase *colorCtrlInst)
+VOS_UINT32 RunLightBreathActionCtrl::StartAction(RunLightColorCtrlBase *colorCtrlInst)
 {
     if (Init(colorCtrlInst) != VOS_OK) {
         return VOS_ERR;

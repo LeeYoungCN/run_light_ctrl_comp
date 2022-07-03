@@ -4,7 +4,7 @@ RunLightConstActionCtrl::RunLightConstActionCtrl(const LightAction &actionPara)
     : m_actionPara(actionPara)
 {}
 
-VOS_UINT32 RunLightConstActionCtrl::StartLoop(RunLightColorCtrlBase *colorCtrlInst)
+VOS_UINT32 RunLightConstActionCtrl::StartAction(RunLightColorCtrlBase *colorCtrlInst)
 {
     if (Init(colorCtrlInst) != VOS_OK) {
         return VOS_ERR;

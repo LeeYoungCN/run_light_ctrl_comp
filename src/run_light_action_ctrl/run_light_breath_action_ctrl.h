@@ -14,7 +14,7 @@ public:
     RunLightBreathActionCtrl(const LightAction &actionPara);
     virtual ~RunLightBreathActionCtrl() = default;
 
-    virtual VOS_UINT32   StartLoop(RunLightColorCtrlBase *colorCtrlInst) override;
+    virtual VOS_UINT32   StartAction(RunLightColorCtrlBase *colorCtrlInst) override;
     virtual ActionStatus NextStep() override;
     virtual VOS_BOOL     IsValidPara() override;
 protected:

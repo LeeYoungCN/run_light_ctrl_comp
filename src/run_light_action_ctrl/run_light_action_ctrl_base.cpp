@@ -7,6 +7,12 @@ RunLightActionCtrlBase::~RunLightActionCtrlBase()
     }
 }
 
+VOS_VOID RunLightActionCtrlBase::StopAction()
+{
+    ;
+}
+
+
 VOS_UINT32 RunLightActionCtrlBase::Init(RunLightColorCtrlBase *colorCtrlInst)
 {
     if ((colorCtrlInst == VOS_NULL_PTR) || (!IsValidPara())) {

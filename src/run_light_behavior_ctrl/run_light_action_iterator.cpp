@@ -4,40 +4,49 @@
 
 #define TO_FLOAT(num) static_cast<VOS_FLOAT>(num)
 #define TO_U32(num)   static_cast<VOS_UINT32>(num)
+#define INST(className) className::GetInstance()
+
+RunLightActionIterator::~RunLightActionIterator()
+{
+    StopIterator();
+}
 
 VOS_VOID RunLightActionIterator::Init(RunLightColorCtrlBase *colorCtrl, RunLightCtrlTimer &timer)
 {
     m_colorCtrl = colorCtrl;
-    m_itrTimer = timer;
+    m_itrTimer  = timer;
 }
 
 // 开始运行动作迭代器
 VOS_VOID RunLightActionIterator::StartIterator(const LightBehaviorComp &behaviorComp)
 {
-    // 校验参数
-    if (!IsValidBehaviorComp(behaviorComp)) {
+    if (behaviorComp.loopNum == 0) {
         return;
     }
 
-    m_loopNum  = behaviorComp.loopNum;
-    if (m_loopNum == LOOP_INFINITE) {
-        m_iteratorType = IteratorType::INFINITE;
-    } else {
-        m_iteratorType = IteratorType::FINITE;
-    }
+    StopIterator();
 
-    if (m_actionCtrl != VOS_NULL_PTR) {
-        delete m_actionCtrl;
-        m_actionCtrl = VOS_NULL_PTR;
-    }
-    m_actionCtrl = RunLightActionCtrlFactory::GetInstance().CreateRunLightAction(behaviorComp.lightAction);
+    m_loopNum  = behaviorComp.loopNum;
+    m_iteratorType = (m_loopNum == LOOP_INFINITE ? IteratorType::INFINITE : IteratorType::FINITE);
+    m_actionCtrl = INST(RunLightActionCtrlFactory).CreateRunLightAction(behaviorComp.lightAction);
     if (m_actionCtrl == VOS_NULL_PTR) {
         return;
     }
+
     if (m_itrTimer.StartTimer(behaviorComp.lightAction.delayTime) == VOS_OK) {
         StartLoop();
     }
 }
+
+VOS_VOID RunLightActionIterator::StopIterator()
+{
+    if (m_actionCtrl != VOS_NULL_PTR) {
+        delete m_actionCtrl;
+        m_actionCtrl = VOS_NULL_PTR;
+    }
+    m_itrTimer.StopTimer();
+}
+
 
 // 运行下一步
 RunningStatus RunLightActionIterator::NextStep(VOS_UINT32 timerName)
@@ -85,4 +94,3 @@ VOS_VOID RunLightActionIterator::StartLoop()
     }
     m_iteratorStatus = RunningStatus::RUNNING;
 }
-

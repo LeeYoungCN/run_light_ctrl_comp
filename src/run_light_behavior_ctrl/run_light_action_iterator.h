@@ -22,24 +22,25 @@ enum class IteratorType {
 class RunLightActionIterator {
 public:
     RunLightActionIterator() = default;
-    ~RunLightActionIterator() = default;
+    ~RunLightActionIterator();
 
     VOS_VOID      Init(RunLightColorCtrlBase *colorCtrl, RunLightCtrlTimer &timer);
     VOS_VOID      StartIterator(const LightBehaviorComp &behaviorComp);
     RunningStatus NextStep(VOS_UINT32 timerName);
+    VOS_VOID      StopIterator();
 
 private:
     VOS_VOID StartLoop();
     VOS_VOID NextLoop();
 
 private:
-    COMP_TIMER   m_itrTimer;
-
     VOS_UINT32    m_loopNum = 0;
-    IteratorType  m_iteratorType = IteratorType::FINITE;
+    IteratorType  m_iteratorType    = IteratorType::FINITE;
     RunningStatus m_iteratorStatus  = RunningStatus::FINISH;
+
+    RunLightCtrlTimer       m_itrTimer;
     RunLightActionCtrlBase *m_actionCtrl = VOS_NULL_PTR;
-    RunLightColorCtrlBase *m_colorCtrl = VOS_NULL_PTR;
+    RunLightColorCtrlBase  *m_colorCtrl  = VOS_NULL_PTR;
 };
 
 #endif // RUN_LIGHT_ACTION_ITERATOR_H

@@ -2,6 +2,7 @@
 #include "run_light_action_ctrl_def.h"
 #include "run_light_const_action_ctrl.h"
 #include "run_light_flash_action_ctrl.h"
+#include "run_light_breath_action_ctrl.h"
 
 RunLightActionCtrlFactory &RunLightActionCtrlFactory::GetInstance()
 {
@@ -22,6 +23,7 @@ RunLightActionCtrlBase *RunLightActionCtrlFactory::CreateRunLightAction(const Li
             break;
         }
         case ActionType::BREATH: {
+            ret = new RunLightBreathActionCtrl(actionPara);
             break;
         }
         default:

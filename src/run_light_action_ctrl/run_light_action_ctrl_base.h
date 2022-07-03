@@ -11,6 +11,7 @@ public:
 
     virtual VOS_UINT32   StartAction(RunLightColorCtrlBase *colorCtrlInst) = 0;
     virtual ActionStatus NextStep() = 0;
+    virtual VOS_UINT32   StopAction();
     virtual VOS_BOOL     IsValidPara() = 0;
 
 protected:
